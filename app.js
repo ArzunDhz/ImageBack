@@ -2,8 +2,8 @@
 import cookieParser from "cookie-parser";
 import express from "express";
 import { config } from "dotenv";
-import UserRouter from "./routes/userInfoRoutes.js";
 import ImageRouter from "./routes/imageRoutes.js";
+import UserRouter from "./routes/userInfoRoutes.js";
 import { errorMiddleware } from "./middlewares/Error.js";
 import cors from "cors";
 

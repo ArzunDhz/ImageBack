@@ -3,7 +3,6 @@ import express from 'express'
 import {userLogin, userRegister ,userDelete ,userInfo, userLogout, resetPassword } from '../controllers/userController.js'
 import { isUserAuthnecated } from '../middlewares/Auth.js'
 
-import passport from 'passport'
 
 
 router.post('/register',userRegister)

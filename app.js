@@ -14,7 +14,7 @@ config({
 export const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://192.168.1.80:5173","https://image-gene.netlify.app/"],
+    origin: ["http://localhost:5173", "http://192.168.1.80:5173","https://image-gene.netlify.app"],
     credentials: true,
   })
 );

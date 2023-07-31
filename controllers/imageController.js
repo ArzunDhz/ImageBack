@@ -7,7 +7,9 @@ export const generateImage = async (req, res, next) => {
 try {
   
   const { imageDescription } = req.body;
-  const userd = await User.findById(req.user._id);
+  console.log(req.user)
+  console.log(imageDescription)
+  const userd = await User.findById(req.user);
   if (userd.token < 10)
     return next(new ErrorHandler("Out of Token", 400));
 
@@ -31,7 +33,7 @@ try {
   );
 
   const updateuser = await User.findByIdAndUpdate(
-    { _id: req.user._id },
+    { _id: req.user },
     {
       $inc: { token: -10 },
     }
@@ -53,7 +55,7 @@ try {
 
 
 export const getAllImage  = async(req,res ,next)=>{
-    const user  = req.user._id
+    const user  = req.user
     const image = await ImageSchema.find({user})
     if(!image) return next( new ErrorHandler("Not found",404))
     res.status(200).json({
@@ -82,7 +84,7 @@ export const deleteImage  = async(req,res ,next)=>{
 
 export const  deleteAllImage  = async(req,res ,next)=>{
   try {
-    const user  = req.user._id
+    const user  = req.user
     const image = await ImageSchema.find({user})
     if(!image) return next( new ErrorHandler("Not found",404))
     res.status(200).json({

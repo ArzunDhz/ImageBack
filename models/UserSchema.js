@@ -7,18 +7,22 @@ const userSchema = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true,
-        unique:true,
     },
     password:{
         type:String,
-        required:true,
     },
     token:{
         type:Number,
         default:150,
         require:true
-    }
+    },
+    createdfrom:{
+        type:String,
+        default:'UserForm'
+    },
+    photo:String,
+    googleId:String,
+    githubId:String
 });
 
 

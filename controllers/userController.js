@@ -39,7 +39,7 @@ export const userLogin = async (req, res, next) => {
 
 export const userInfo = async (req, res, next) => {
   try {
-    const { _id } = req.user;
+    const _id  = req.user;
     const user = await User.findById(_id);
     res.status(200).json({
       success: true,
@@ -53,7 +53,7 @@ export const userInfo = async (req, res, next) => {
 
 export const userDelete = async (req, res, next) => {
   try {
-    const { _id } = req.user;
+    const  _id  = req.user;
     const user = await User.findById(_id);
     if (!user)
       return res
@@ -68,7 +68,13 @@ export const userDelete = async (req, res, next) => {
         sameSite: process.env.NODE_ENV === "development" ? false : "none",
       })
       .status(200)
-      .json({
+      
+      res
+      .cookie("connect.sid", "", {
+        expires: new Date(Date.now()),
+      })
+
+      res.json({
         success: true,
         message: "User Deleted",
       });
@@ -76,31 +82,60 @@ export const userDelete = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
 export const userLogout = async (req, res, next) => {
   try {
-    const { _id } = req.user;
-    const user = await User.findById(_id);
-    if (!user)
-      return res.status(404).json({ success: false, message: "User Loginn" });
+    if(req.cookies.token)
+    {
+      console.log('i have both ')
     res
+      .cookie("connect.sid", "", {
+        expires: new Date(Date.now()),
+      })
+
+      res
       .cookie("token", "", {
         expires: new Date(Date.now()),
         secure: process.env.NODE_ENV === "development" ? false : true,
         httpOnly: process.env.NODE_ENV === "development" ? false : true,
         sameSite: process.env.NODE_ENV === "development" ? false : "none",
       })
-      .status(200)
+
+
+    return res.status(200)
       .json({
         success: true,
         message: "Logged Out",
       });
+    }
+
+   else if( req.cookies['connect.sid'] )
+    {
+      console.log('i have one')
+      res
+      .cookie("connect.sid", "", {
+        expires: new Date(Date.now()),
+      })
+
+      res.status(200).json({
+        success: true,
+        message: "Logged Out",
+      });
+
+    }
+
+
   } catch (error) {
     next(error);
   }
 };
+
+
 export const resetPassword = async (req, res, next) => {
   try {
-    const { _id } = req.user;
+    const _id  = req.user;
     const user = await User.findById(_id);
     const { oldpassword } = req.body;
     const { newpassword } = req.body;

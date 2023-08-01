@@ -13,7 +13,7 @@ router.get(
 
 
 router.get(
-  "https://dhz-image.onrender.com/auth/google/callback",
+  "/auth/google/callback",
   passport.authenticate("google", {
     successRedirect: "http://localhost:5173/home",
     failureRedirect: "/auth/github/failure",

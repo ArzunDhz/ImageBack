@@ -12,7 +12,7 @@ passport.use(
     {
       clientID: gClientID,
       clientSecret: gClientSecret,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "https://dhz-image.onrender.com/auth/google/callback",
       
     },
     async (accessToken, refreshToken, profile, done) => {
